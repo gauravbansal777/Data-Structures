@@ -1,0 +1,197 @@
+package binaryTrees;
+
+
+// the transversal code will be print function
+// and the display function is to initiate transversals
+
+
+
+class myBinarytree{
+	class Link
+	{
+		int data;
+		Link leftchild;
+		Link rightchild;
+		Link(int data)
+		{
+			this.data=data;
+			this.leftchild=null;
+			this.rightchild=null;
+		}
+		
+	}
+	
+	Link root=null;
+	
+	void insert(int a)
+	{
+		Link newnode=new Link(a);
+		
+		if(root==null)
+		{
+			root=newnode;
+			
+		}
+		else
+		{
+		  Link current=root ;
+		  Link parent=null;
+			
+			while(current!=null)
+			{
+				parent=current;
+				if(current.data>a)
+				{
+					
+					current=current.leftchild;
+					
+				}
+				else if(current.data<=a)
+				{
+					current=current.rightchild;
+				}
+				
+			}
+			if(parent.data>a)
+			{
+			parent.leftchild=newnode;
+			}
+			else
+			{
+				parent.rightchild=newnode;
+			}
+			
+		}
+	}
+	public void find(int key) // find node with given key
+	{ // (assumes non-empty tree)
+	Link current = root; // start at root
+	
+	while(current.data != key  ) // while no match,
+	{
+		     if(current.data> key) // go left?
+	           {
+			     current = current.leftchild;}
+	         else
+	            {
+		         current = current.rightchild;} // or go right?
+		     if(current==null)
+		     {System.out.println("NOT FOUND");
+		    	 break;     // This break doesn't allow current=null to pass through the loop  avoiding NULL POINTER EXCEPTION
+		     }
+	     
+	}
+	if(current==null)
+	{} 
+	else
+	{
+		System.out.println("FOUND");
+	}
+	
+	}
+	
+	private void inorderprint(Link n) //INORDER TRANSVERSAL IS A WAY OF SORTING
+	{
+		
+		if(n==null)
+		{
+			return;
+		}
+		
+		else
+		{
+			inorderprint(n.leftchild);
+			System.out.print(n.data+"  ");
+			inorderprint(n.rightchild);
+		}
+		
+	}
+	void inorderdisplay()
+	{
+		inorderprint(root);
+		System.out.println();
+	}
+	private void preorderprint(Link n)
+	{
+		
+		if(n==null)
+		{
+			return;
+		}
+		
+		else
+		{
+			System.out.print(n.data+"  ");
+			
+			preorderprint(n.leftchild);
+			
+			preorderprint(n.rightchild);
+		}
+		
+	}
+	void preorderdisplay()
+	{
+		preorderprint(root);
+		  System.out.println();}
+	private void postorderprint(Link n)
+	{
+		
+		if(n==null)
+		{
+			return;
+		}
+		
+		else
+		{
+			
+			
+			postorderprint(n.leftchild);
+			
+			postorderprint(n.rightchild);
+			
+			System.out.print(n.data+"  ");
+		}
+		
+	}
+	void postorderdisplay()
+	{
+		postorderprint(root);
+	}
+	
+	
+	
+	
+
+
+	
+	
+}
+
+
+
+public class Transversals {
+
+	public static void main(String[] args) {
+		myBinarytree myds=new myBinarytree();
+	       myds.insert(5);
+	       myds.insert(3);
+	       myds.insert(9);
+	       myds.insert(12);
+	       myds.insert(14);
+	       myds.insert(1);
+	       myds.insert(121);
+	       myds.insert(2);
+	       myds.insert(90);
+	       myds.insert(21);
+	       myds.insert(34);
+	       myds.insert(12);
+	       myds.inorderdisplay();
+	       myds.preorderdisplay();
+	       myds.postorderdisplay();
+	       
+	       
+
+	}
+
+}
+
