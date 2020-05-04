@@ -1,0 +1,237 @@
+package binaryTrees;
+
+
+
+class BinaryTree{
+	class Node
+	{
+		int data;
+		Node leftchild;
+		Node rightchild;
+		Node(int data)
+		{
+			this.data=data;
+			this.leftchild=null;
+			this.rightchild=null;
+		}
+		
+	}
+	
+	Node root=null;
+	
+	void insert(int a)
+	{
+		Node newnode=new Node(a);
+		
+		if(root==null)
+		{
+			root=newnode;
+			
+		}
+		else
+		{
+			Node current=root ;
+			Node parent=null;
+			
+			while(current!=null)
+			{
+				parent=current;
+				if(current.data>a)
+				{
+					
+					current=current.leftchild;
+					
+				}
+				else if(current.data<=a)
+				{
+					current=current.rightchild;
+				}
+				
+			}
+			if(parent.data>a)
+			{
+			parent.leftchild=newnode;
+			}
+			else
+			{
+				parent.rightchild=newnode;
+			}
+			
+		}
+	}
+	public void find(int key) // find node with given key
+	{ // (assumes non-empty tree)
+	Node current = root; // start at root
+	
+	while(current.data != key  ) // while no match,
+	{
+		     if(current.data> key) // go left?
+	           {
+			     current = current.leftchild;}
+	         else
+	            {
+		         current = current.rightchild;} // or go right?
+		     if(current==null)
+		     {System.out.println("NOT FOUND");
+		    	 break;     // This break doesn't allow current=null to pass through the loop  avoiding NULL POINTER EXCEPTION
+		     }
+	     
+	}
+	if(current==null)
+	{} 
+	else
+	{
+		System.out.println("FOUND");
+	}
+	}
+      void delete(int data)
+    {     
+    	   // checking how many child
+    	  Node current = root; // start at root
+    		Node parent=null;
+    		while(current.data != data ) // while no match,
+    		{
+    			     parent=current;
+    			     if(current.data> data) // go left?
+    		           {
+    				     current = current.leftchild;
+    				     }
+    		         else                  // or go right?
+    		            {
+    			         current = current.rightchild;
+    			         } 
+    			     if(current==null)
+    			        {
+    			    	 System.out.println("ERROR: Data doesn't exist");
+    			        break;
+    			    	 
+    			         }
+    		     
+    		}
+    		if(current!=null)
+    		{  // Node is there in the tree
+    			    // no child
+    			    if(current.leftchild==null && current.rightchild==null)
+    			    {
+    			    	if(parent.leftchild==current)
+    			    	{
+    			    		parent.leftchild=null;
+    			    	}
+    			    	else
+    			    	{
+    			    		parent.rightchild=null;
+    			    	}
+    			    	
+    			    }
+    			    // 1 child
+    			    else if(current.leftchild!=null && current.rightchild==null || current.leftchild==null && current.rightchild!=null)
+    			    {
+    			    	if(current.leftchild!=null && current.rightchild==null)
+    			    	{
+    			    		if(parent.leftchild==current)
+    			    		{
+    			    			parent.leftchild=current.leftchild;
+    			    		}
+    			    		else
+    			    		{
+    			    			parent.rightchild=current.leftchild;
+    			    		}
+    			    	}
+    			    	else
+    			    	{
+    			    		if(parent.leftchild==current)
+    			    		{
+    			    			parent.leftchild=current.rightchild;
+    			    		}
+    			    		else
+    			    		{
+    			    			parent.rightchild=current.rightchild;
+    			    		}
+    			    		
+    			    	}
+    			    	
+    			    		
+    			    }
+    			    // 2 children *IMPORTANT*
+    			    else  // Because only talking about binary trees
+    			    {
+    			    	// In this we have to find the inorder successor of the element and replace it with the element to be deleted
+    			    	// in this work for references root's reference cant change its data 
+    			        // .leftchild .rightchild make references of that original node so they can be changed but if current=null is done then nothing will change
+    			    	Node n=current.rightchild;
+    			    	if(n.leftchild==null)
+    			    	{
+    			    		if(parent.leftchild==current)
+    			    		{
+    			    			parent.leftchild=n;
+    			    		    current.rightchild=null;
+    			    		 }
+    			    		else
+    			    		{
+    			    			parent.rightchild=n;
+    			    			current.rightchild=null;
+    			    	
+    			    		}
+    			    		
+    			    	}
+    			    	else
+    			    	{
+    			    		
+    			    	     while(n.leftchild.leftchild!=null)
+    			    	    {
+    			    		   n=n.leftchild;
+    			    	    }
+    			    	     if(parent.leftchild==current)
+    			    	     { 
+    			    	    	 parent.leftchild=n.leftchild;
+    			    	         n.leftchild=null;
+    			    	     }
+    			    	     else
+    			    	     {
+    			    	    	 parent.rightchild=n.leftchild;
+        			    	     n.leftchild=null;
+    			    	    	 
+    			    	     }
+    			    	     //SAME NEEDS TO BE DONE FOR THE ROOT IN ALL THE THREE CODES bas parent ka drama hatake directly rot likhna hai
+    			    	}
+    			    }
+    			    }
+     			
+    		} 
+    		
+	
+	}
+
+	
+	
+
+
+public class DeletingNode {
+
+	public static void main(String[] args) {
+		BinaryTree a=new BinaryTree();
+		
+		
+		a.insert(63);
+		a.insert(100);
+		a.insert(105);
+		a.insert(98);
+		a.insert(92);
+		a.insert(95);
+		a.insert(99);
+		a.insert(81);
+		a.insert(70);
+		a.insert(88);
+		a.insert(12);
+		a.insert(5);
+		
+		a.delete(100);                        //Testing delete
+		System.out.println(a.root.data);
+		
+	//LEFT TO ADD CODE FOR ROOT IN DELETE
+		
+		
+
+	}
+
+}
