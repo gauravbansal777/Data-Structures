@@ -1,0 +1,138 @@
+package binaryTrees;
+
+
+
+class BeinaryTree{
+	class Node
+	{
+		int data;
+		Node leftchild;
+		Node rightchild;
+		Node(int data)
+		{
+			this.data=data;
+			this.leftchild=null;
+			this.rightchild=null;
+		}
+		
+	}
+	
+	Node root=null;
+	
+	void insert(int a)
+	{
+		Node newnode=new Node(a);
+		
+		if(root==null)
+		{
+			root=newnode;
+			
+		}
+		else
+		{
+			Node current=root ;
+			Node parent=null;
+			
+			while(current!=null)
+			{
+				parent=current;
+				if(current.data>a)
+				{
+					
+					current=current.leftchild;
+					
+				}
+				else if(current.data<=a)
+				{
+					current=current.rightchild;
+				}
+				
+			}
+			if(parent.data>a)
+			{
+			parent.leftchild=newnode;
+			}
+			else
+			{
+				parent.rightchild=newnode;
+			}
+			
+		}
+	}
+	public void find(int key) // find node with given key
+	{ // (assumes non-empty tree)
+	Node current = root; // start at root
+	
+	while(current.data != key  ) // while no match,
+	{
+		     if(current.data> key) // go left?
+	           {
+			     current = current.leftchild;}
+	         else
+	            {
+		         current = current.rightchild;} // or go right?
+		     if(current==null)
+		     {System.out.println("NOT FOUND");
+		    	 break;     // This break doesn't allow current=null to pass through the loop  avoiding NULL POINTER EXCEPTION
+		     }
+	     
+	}
+	if(current==null)
+	{} 
+	else
+	{
+		System.out.println("FOUND");
+	}
+	
+	}
+	
+void min()
+{
+	Node z=root;
+	while(z.leftchild!=null)
+	{
+		z=z.leftchild;
+	}
+	System.out.println(z.data);
+	}
+void max()
+{Node z=root;
+while(z.rightchild!=null)
+{
+	z=z.rightchild;
+}
+System.out.println(z.data);
+	}
+
+	
+	
+}
+
+public class MinMaxusingTree {
+
+	public static void main(String[] args) {
+		BeinaryTree a=new BeinaryTree();
+		
+		a.insert(2);
+		a.insert(3);
+		a.insert(15);
+		a.insert(67);
+		a.insert(45);
+		a.insert(-1);
+		a.insert(-20);
+		a.insert(89);
+		a.insert(3);
+		a.insert(145);
+		a.insert(12);
+		a.insert(1);
+		a.insert(121);
+		a.insert(44);
+		a.insert(21);
+		a.insert(33);
+		a.insert(25);
+		a.min();   //TESTING
+		a.max();
+
+	}
+
+}
